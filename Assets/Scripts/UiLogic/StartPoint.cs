@@ -1,15 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using Scripts.Test;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class StartPoint : MonoBehaviour
+public class StartPoint : MonoBehaviour, IDisposable
 {
-    [SerializeField] private OfferWindowContainer[] _offerContainer;
+    [SerializeField] private OfferContainerMap _offerContainer;
     [SerializeField] private OffersCollectiveView _prefabView;
     [SerializeField] private Transform _parentView;
     [SerializeField] private StartView _startView;
@@ -31,11 +27,13 @@ public class StartPoint : MonoBehaviour
         _startController.Hide();
         OffersCollectiveView instance = Instantiate(_prefabView, _parentView);
         
-        OfferWindowData[] offerWindowDatas = new OfferWindowData[_startModel.OfferCount.Value];
+        var offerWindowDatas = new OfferContainer[_startModel.OfferCount];
+        var collection = _offerContainer.value.collection;
         
         for (int i = 0; i < offerWindowDatas.Length; i++)
         {
-            offerWindowDatas[i] = _offerContainer[Random.Range(0, _offerContainer.Length)].OfferData;
+            var randomValue = Random.Range(0, collection.Count);
+            offerWindowDatas[i] = collection[randomValue];
         }
 
 
@@ -46,9 +44,13 @@ public class StartPoint : MonoBehaviour
 
     private void OnDestroy()
     {
-        _startController.ShowCollectionIntent -= ShowOfferCollection;
-        _startController.Dispose();
-        _offerWindowCollectionController.Dispose();
+        Dispose();
+        _startController?.Dispose();
+        _offerWindowCollectionController?.Dispose();
 
+    }
+    public void Dispose()
+    {
+        _startController.ShowCollectionIntent -= ShowOfferCollection;
     }
 }

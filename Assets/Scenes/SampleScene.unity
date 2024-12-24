@@ -1601,9 +1601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4816b0a4a46b49243a9102c48f8d7c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offerContainer:
-  - {fileID: 11400000, guid: 69d39e203232db340b7a82d0927ced55, type: 2}
-  - {fileID: 11400000, guid: 6c8e67d8e69048746be40a361a6d62bd, type: 2}
+  _offerContainer: {fileID: 11400000, guid: a17a35f5e412bd445b7b7d41474daf2d, type: 2}
   _prefabView: {fileID: 6611349790757051493, guid: bbda534427b2a91488de26226d628462, type: 3}
   _parentView: {fileID: 990810333}
   _startView: {fileID: 246410979}

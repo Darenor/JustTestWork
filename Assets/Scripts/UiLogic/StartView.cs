@@ -21,13 +21,9 @@ public class StartView : MonoBehaviour
 
     private void FireInputEvent(string value)
     {
-        if (string.IsNullOrEmpty(value))
-        {
-            _show.interactable = false; 
-            return;
-        }
+        _show.interactable = !string.IsNullOrEmpty(value);
         
-        if (!int.TryParse(value, out int parsed))
+        if (!int.TryParse(value, out int parsed) && _show.interactable)
             throw new Exception($"Something wrong with input");
         
         InputFieldChanged?.Invoke(parsed);

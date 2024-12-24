@@ -1,12 +1,13 @@
 ﻿using System;
+using Scripts.Test;
 using UnityEngine;
 
 [Serializable]
 public class OffersCollection
 {
-    public readonly OfferWindowData[] OfferWindowDatas;
+    public readonly OfferContainer[] OfferWindowDatas;
 
-    public OffersCollection(OfferWindowData[] offerWindowDatas)
+    public OffersCollection(OfferContainer[] offerWindowDatas)
     {
         OfferWindowDatas = offerWindowDatas;
     }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Scripts.Test;
+using UnityEngine;
 
 public class OffersCollectiveView : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class OffersCollectiveView : MonoBehaviour
 
     public void Show(OffersCollection collection)
     {
-        foreach (OfferWindowData offerWindowData in collection.OfferWindowDatas)
+        foreach (OfferContainer offerWindowData in collection.OfferWindowDatas)
         {
             OfferWindowView instance = Instantiate(_prefab, _parent);
             instance.OpenOffer(offerWindowData);

@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Globalization;
+using Scripts.Test;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,31 +24,36 @@ public class OfferWindowView : MonoBehaviour
     public void Dispose() =>
         _priceButton.onClick.RemoveListener(Buy);
     
-    public void OpenOffer(OfferWindowData offerWindowData)
+    public void OpenOffer(OfferContainer offerContainer)
     {
-        _headerText.text = offerWindowData.WindowHeader;
-        _descriptionText.text = offerWindowData.WindowDescription;
-        _image.sprite = offerWindowData.MainIcon;
+        var price = offerContainer.GetPrice();
+        if (offerContainer.id == OfferContainerId.Book)
+        {
+            price += 1;
+        }
+        
+        _headerText.text = offerContainer.WindowHeader;
+        _descriptionText.text = offerContainer.WindowDescription;
+        _image.sprite = offerContainer.MainIcon;
 
         for (int i = 0; i < _resourceViews.Length; i++)
         {
-            if (offerWindowData.Resources.Length > i)
+            if (offerContainer.Resources.Length > i)
             {
-                _resourceViews[i].Show(offerWindowData.Resources[i]);
+                _resourceViews[i].Show(offerContainer.Resources[i]);
             }
             else
             {
                 _resourceViews[i].Hide();
             }
         }
+        
+        _price.text = price.ToString(CultureInfo.CurrentCulture);
 
-        _price.text = $"{offerWindowData.Price}";
-
-        if (offerWindowData.Discount > 0f)
-        {
-            _priceWithDiscount.text = $"{offerWindowData.PriceWithoutDiscount}";
-            _discountAmount.text = $"{offerWindowData.Discount:P}";
-        }
+        if (!(offerContainer.Discount > 0f))
+            return;
+        _priceWithDiscount.text = offerContainer.PriceWithOutDiscount.ToString(CultureInfo.CurrentCulture);
+        _discountAmount.text = offerContainer.Discount.ToString("P");
     }
     
     private void Buy() =>

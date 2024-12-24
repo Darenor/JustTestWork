@@ -1,4 +1,4 @@
 ﻿public class StartModel
 {
-    public int? OfferCount;
+    public int OfferCount;
 }
